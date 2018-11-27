@@ -4,7 +4,6 @@ import java.sql.*;
 
 public class DBProcessing {
 
-
     private static Statement statement;
 
     public static void Connect() throws ClassNotFoundException, SQLException {
