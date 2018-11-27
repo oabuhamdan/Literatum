@@ -34,7 +34,7 @@ public class UploadPageControllerServlet extends HttpServlet {
                 for(FileItem item : multiparts){
                     if(!item.isFormField()){
                         String name = new File(item.getName()).getName();
-                        item.write( new File("uploaded" + File.separator + name));
+                        item.write( new File( "/home/ohamdan/Downloads"+ name));
                     }
                 }
 
