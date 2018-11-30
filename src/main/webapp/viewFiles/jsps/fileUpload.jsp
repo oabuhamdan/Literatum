@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 
 
@@ -11,49 +11,38 @@
 
 <body>
 
-<%--<div class="theWholePage">--%>
+<div class="theWholePage">
 
-    <%--<h2>File Upload</h2>--%>
+    <h2>File Upload</h2>
 
-    <%--<br/>--%>
+    <br/>
 
-    <%--<!-- Upload  -->--%>
-    <%--<form action="<c:url value="/uploadFile"/>" method="post" class="uploader" enctype="multipart/form-data">--%>
+    <!-- Upload  -->
+    <form action="uploadFile" method="post" class="uploader" enctype="multipart/form-data">
 
-        <%--<input type="file" name="file"/>--%>
+        <label>
 
-        <%--<label>--%>
+            <div id="start">
 
-            <%--<div id="start">--%>
+                <div>Select a file please</div>
+                <br>
 
-                <%--<br/>--%>
+                ${empty requestScope.error? "" : "<p style='color:red'>"}
+                ${requestScope.error}
+                ${empty requestScope.error? "" :"</p>"}
 
-                <%--&lt;%&ndash;<div>Select a file please</div>&ndash;%&gt;--%>
+                <input type="file" value="Browse" class="btn btn-primary" name="fileName" />
+                <br/>
 
-                <%--&lt;%&ndash;<span id="file-upload-btn" class="btn btn-primary">Upload</span>&ndash;%&gt;--%>
+                <input type="submit" value="Upload" class="btn btn-primary"/>
+            </div>
+        </label>
+    </form>
 
-                <%--Press to Select File to Upload<input type="file" name="fileName" class="btn btn-primary"/>--%>
-
-                <%--<br/>--%>
-                <%--<br/>--%>
-
-                <%--<input type="submit" value="Upload" class="btn btn-primary"/>--%>
-
-            <%--</div>--%>
-
-        <%--</label>--%>
-    <%--</form>--%>
-
-<%--</div>--%>
-
-<div>
-    <h3> Choose File to Upload in Server </h3>
-    <form action="uploadFile" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" />
-        <input type="submit" value="upload" />
+    <form method="get" action="<c:url value="/mainPage"/>">
+        <button class="btn btn-primary">Return to main page</button>
     </form>
 </div>
-
 </body>
 
 
