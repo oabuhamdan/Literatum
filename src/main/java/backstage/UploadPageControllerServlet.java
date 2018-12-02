@@ -31,7 +31,7 @@ public class UploadPageControllerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String UPLOAD_DIRECTORY = "/home/osama-abuhamdan/IdeaProjects/Literatum/uploaded";
+        String UPLOAD_DIRECTORY = "/home/ohamdan/IdeaProjects/Literatum/uploaded";
         String fileName = "";
         try {
             for ( Part part : request.getParts() ) {
@@ -49,6 +49,8 @@ public class UploadPageControllerServlet extends HttpServlet {
         } catch (Exception e) {
             sendMsgToJSP("error",e.getMessage(),request,response);
             System.out.println("File Uploaded Unsuccessfully");
+
+            System.out.println(XMLUtils.validateWithDTDUsingDOM("/home/ohamdan/IdeaProjects/Literatum/unzipped/afpa_afpa_6_3_20181029033525638/afpa_6_3/192536211600600301/192536211600600301.xml"));
         }
     }
 
