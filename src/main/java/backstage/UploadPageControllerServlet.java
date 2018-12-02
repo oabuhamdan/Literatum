@@ -20,7 +20,7 @@ import java.util.List;
 
 @WebServlet(name = "UploadPageControllerServlet", urlPatterns = "/uploadFile")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024*1024*100,
+        maxFileSize = 1024 * 1024 * 100,
         maxRequestSize = 1024 * 1024 * 100)
 public class UploadPageControllerServlet extends HttpServlet {
 
@@ -32,26 +32,30 @@ public class UploadPageControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String UPLOAD_DIRECTORY = "/home/osama-abuhamdan/IdeaProjects/Literatum/uploaded";
-
+        String fileName = "";
         try {
             for ( Part part : request.getParts() ) {
-                String fileName = part.getSubmittedFileName();
-                if (fileName.equals(""))throw new Exception("Please choose a file");
-                if(!fileName.endsWith(".zip"))throw new Exception("ZIP files allowed only");
+                fileName = part.getSubmittedFileName();
+                if (fileName.equals("")) throw new Exception("Please choose a file");
+                if (!fileName.endsWith(".zip")) throw new Exception("ZIP files allowed only");
                 part.write(UPLOAD_DIRECTORY + File.separator + fileName);
             }
-            request.setAttribute("alertMsg", "File Uploaded Successfully , Returning to main page");
-            System.out.println("File Uploaded Successfully");
-            Thread.sleep(5000);
-            RequestDispatcher rd = request.getRequestDispatcher("viewFiles/jsps/mainpage.jsp");
-            rd.forward(request,response);
-        }
 
-        catch (Exception e){
-            request.setAttribute("error",e.getMessage());
-            RequestDispatcher rd = request.getRequestDispatcher("viewFiles/jsps/fileUpload.jsp");
-            rd.forward(request,response);
-            System.out.println("File Uploaded Unsuccessfully");        }
+            sendMsgToJSP("success","File "+fileName+" Uploaded  Successfully",request,response);
+            System.out.println("File Uploaded Successfully");
+
+            FilesUtil.unzipFileAndDelete(fileName);
+
+        } catch (Exception e) {
+            sendMsgToJSP("error",e.getMessage(),request,response);
+            System.out.println("File Uploaded Unsuccessfully");
+        }
+    }
+
+    private void sendMsgToJSP(String attribute, String msg, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute(attribute, msg);
+        RequestDispatcher rd = request.getRequestDispatcher("viewFiles/jsps/fileUpload.jsp");
+        rd.forward(request, response);
     }
 }
 

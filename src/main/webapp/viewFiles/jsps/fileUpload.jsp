@@ -31,11 +31,16 @@
                 ${requestScope.error}
                 ${empty requestScope.error? "" :"</p>"}
 
+                ${empty requestScope.success? "" : "<p style='color:green'>"}
+                ${requestScope.success}
+                ${empty requestScope.success? "" :"</p>"}
+
                 <input type="file" value="Browse" class="btn btn-primary" name="fileName" />
                 <br/>
 
                 <input type="submit" value="Upload" class="btn btn-primary"/>
             </div>
+
         </label>
     </form>
 
