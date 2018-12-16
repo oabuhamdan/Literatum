@@ -1,9 +1,5 @@
 package backstage;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,10 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "UploadPageControllerServlet", urlPatterns = "/uploadFile")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
@@ -31,26 +24,23 @@ public class UploadPageControllerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String UPLOAD_DIRECTORY = "/home/ohamdan/IdeaProjects/Literatum/uploaded";
-        String fileName = "";
+
+        System.out.println("Uploading path: " + Utils.UPLOAD_PATH);
+
+        File dir = new File(Utils.UPLOAD_PATH);
+        if (!dir.exists()) dir.mkdir();
+
         try {
-            for ( Part part : request.getParts() ) {
-                fileName = part.getSubmittedFileName();
-                if (fileName.equals("")) throw new Exception("Please choose a file");
-                if (!fileName.endsWith(".zip")) throw new Exception("ZIP files allowed only");
-                part.write(UPLOAD_DIRECTORY + File.separator + fileName);
-            }
 
-            sendMsgToJSP("success","File "+fileName+" Uploaded  Successfully",request,response);
-            System.out.println("File Uploaded Successfully");
+            String fileName = uploadFileAndGetItsName(request);
 
-            FilesUtil.unzipFileAndDelete(fileName);
+            sendMsgToJSP("success", "File " + fileName + " Uploaded  Successfully", request, response);
+
+            SubmissionHandler.handle(fileName);
 
         } catch (Exception e) {
-            sendMsgToJSP("error",e.getMessage(),request,response);
+            sendMsgToJSP("error", e.getMessage(), request, response);
             System.out.println("File Uploaded Unsuccessfully");
-
-            System.out.println(XMLUtils.validateWithDTDUsingDOM("/home/ohamdan/IdeaProjects/Literatum/unzipped/afpa_afpa_6_3_20181029033525638/afpa_6_3/192536211600600301/192536211600600301.xml"));
         }
     }
 
@@ -58,6 +48,18 @@ public class UploadPageControllerServlet extends HttpServlet {
         request.setAttribute(attribute, msg);
         RequestDispatcher rd = request.getRequestDispatcher("viewFiles/jsps/fileUpload.jsp");
         rd.forward(request, response);
+    }
+
+    private String uploadFileAndGetItsName(HttpServletRequest request) throws Exception {
+        String fileName = "";
+        for ( Part part : request.getParts() ) {
+            fileName = part.getSubmittedFileName();
+            if (fileName.equals("")) throw new Exception("Please choose a file");
+            if (!fileName.endsWith(".zip")) throw new Exception("ZIP files allowed only");
+            part.write(Utils.UPLOAD_PATH + fileName);
+
+        }
+        return fileName;
     }
 }
 

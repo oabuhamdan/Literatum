@@ -1,23 +1,35 @@
 package backstage;
 
-import java.io.IOException;
-// DOM
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import org.xml.sax.InputSource;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class XMLUtils {
 
-    private XMLUtils() {}
+    private static int counter=0;
+    private XMLUtils() {
+    }
 
-    // validate using DOM (DTD as defined in the XML)
-    public static boolean validateWithDTDUsingDOM(String xml)
-          {
+
+    // validate using journalMetaDOMParser (DTD as defined in the XML)
+    public static boolean validateWithDTDUsingDOM(String xml) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setValidating(true);
@@ -55,4 +67,43 @@ public class XMLUtils {
         }
         return false;
     }
+
+    public static File XMLConverter(File xmlFile, File xslFile) {
+
+        File outputFile = null;
+        try {
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Source xslt = new StreamSource(xslFile);
+            Transformer transformer = factory.newTransformer(xslt);
+
+            Source text = new StreamSource(xmlFile);
+
+            outputFile = new File(Utils.PROJECT_PATH+"processed/newFile"+counter++ +".xml");
+
+            transformer.transform(text, new StreamResult(outputFile));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outputFile;
+    }
+
+    public static NodeList DOMParser(File xmlFile) {
+        NodeList nList = null;
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+            Document doc = dBuilder.parse(xmlFile);
+
+            doc.getDocumentElement().normalize();
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            nList = doc.getElementsByTagName(doc.getDocumentElement().getNodeName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nList;
+    }
 }
+
+
