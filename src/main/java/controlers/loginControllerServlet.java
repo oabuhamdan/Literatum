@@ -1,4 +1,4 @@
-package frontend;
+package controlers;
 
 
 import database.DBProcessing;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "frontend.loginControllerServlet", urlPatterns = {"/login"})
+@WebServlet(name = "controlers.loginControllerServlet", urlPatterns = {"/login"})
 public class loginControllerServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

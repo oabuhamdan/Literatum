@@ -1,4 +1,6 @@
-package frontend;
+package controlers;
+
+import utils.Utils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

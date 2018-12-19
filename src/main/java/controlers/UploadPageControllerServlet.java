@@ -1,4 +1,4 @@
-package frontend;
+package controlers;
 
 import backstage.SubmissionHandler;
 import utils.Utils;

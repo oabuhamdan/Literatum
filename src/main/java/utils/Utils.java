@@ -1,6 +1,9 @@
 package utils;
 
+import data.Article;
 import backstage.SubmissionHandler;
+import data.Issue;
+import data.Journal;
 
 import java.util.ArrayList;
 import java.util.List;

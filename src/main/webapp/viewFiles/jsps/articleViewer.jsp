@@ -54,18 +54,65 @@
             <div class="col-lg-1 col-md-1 col-sm-1 col-12">Size</div>
             <div class="col-lg-4 col-md-3 col-sm-3 col-12"></div>
         </div>
-        <c:forEach items="${requestScope.issues}" var="issue">
-            <c:if test="${issue.id == param.journalID}">
+
+        <c:if test="${empty requestScope.issues}">
+            <div class="row edrive-table-data-row">
+                No Files To Show Yet
+            </div>
+        </c:if>
+
+
+        <c:forEach items="${requestScope.articles}" var="article">
+
                 <div class="row edrive-table-data-row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-12 data-name"><i class="fas fa-folder edrive-file-icon"></i>
-                        <a href="" title="${issue.pubMonth}/${issue.pubYear}">${issue.pubMonth}/${issue.pubYear}</a></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-12 data-name"><i
+                            class="fas fa-folder edrive-file-icon"></i>
+                        <a href="${article.selfUri}">${article.title}.pdf</a></div>
                     <div class="col-lg-2 col-md-3 col-sm-3 col-12 data-info">-</div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-12 data-info">Folder</div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-12 data-info">-</div>
                     <div class="col-lg-4 col-md-3 col-sm-3 col-12 data-info"></div>
                 </div>
+                <br/>
+                <div class="admin-sub-header">
+                    <h2>Abstract</h2>
+                        ${article.abst}
+                </div>
+            <%--</c:if>--%>
+<%--
+            <c:if test="${i == 1}">
+                <div class="row edrive-table-data-row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-12 data-name"><i
+                            class="fas fa-folder edrive-file-icon"></i>
+                        <a href="journal?journalID=${article.selfUri}">${article.selfUri}</a></div>
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-12 data-info">-</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-12 data-info">Folder</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-12 data-info">-</div>
+                    <div class="col-lg-4 col-md-3 col-sm-3 col-12 data-info"></div>
+                </div>
+                <br/>
+                <div class="admin-sub-header">
+                        ${article.abst}
+                </div>
             </c:if>
+
+            <c:if test="${i == 2}">
+                <div class="row edrive-table-data-row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-12 data-name"><i
+                            class="fas fa-folder edrive-file-icon"></i>
+                        <a href="journal?journalID=${article.selfUri}">${article.selfUri}</a></div>
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-12 data-info">-</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-12 data-info">Folder</div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-12 data-info">-</div>
+                    <div class="col-lg-4 col-md-3 col-sm-3 col-12 data-info"></div>
+                </div>
+                <br/>
+                <div class="admin-sub-header">
+                        ${article.abst}
+                </div>
+            </c:if>--%>
         </c:forEach>
+
     </div>
 </div>
 

@@ -19,10 +19,11 @@ public class SubmissionHandler {
         unzipFile(zipFilePath, unzippingFolderPath);
         deleteZipFile(zipFilePath);
 
-        List<File> filesList=listFilesInSubmission(unzippingFolderPath);
+        List<File> filesList = listFilesInSubmission(unzippingFolderPath);
 
         ArticleFilesHandler.handle(getArticleFiles(filesList));
         IssueFilesHandler.handle(getIssueFiles(filesList));
+        deleteGeneratedFiles();
     }
 
     private static File[] getIssueFiles(List<File> list) {
@@ -73,12 +74,18 @@ public class SubmissionHandler {
         resultList.addAll(Arrays.asList(fList));
         for ( File file : fList ) {
             if (file.isFile()) {
-               // System.out.println(file.getAbsolutePath());
+                // System.out.println(file.getAbsolutePath());
             } else if (file.isDirectory()) {
                 resultList.addAll(listFilesInSubmission(file.getAbsolutePath()));
             }
         }
         return resultList;
+    }
+
+    private static void deleteGeneratedFiles() {
+        for ( File file : new File(Utils.PROJECT_PATH + "processed").listFiles() ) {
+            file.delete();
+        }
     }
 }
 

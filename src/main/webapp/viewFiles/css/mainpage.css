@@ -20,7 +20,7 @@
 .admin-sub-header .site-breadcrumb #wrap #main-module-name {
     font-weight: bold;
     font-family: Arial, monospace;
-    font-size: 30px;
+    font-size: 15px;
     vertical-align: middle;
 }
 
@@ -97,7 +97,7 @@
 .edrive-space .edrive-table-head {
     padding: 0 !important;
     margin: 0;
-    font-size: 12px;
+    font-size: 10px;
     color: #777;
     background: #f7f7f7;
     border-bottom: 1px solid #ddd;
@@ -124,11 +124,16 @@
 }
 
 .edrive-space .edrive-table-data-row .data-name .edrive-file-icon {
-    width: 25px;
+    width: 15px;
 }
 
 .edrive-space .edrive-table-data-row .data-name a {
-    font-size: 25px;
+    font-size: 10px;
+    color: #000;
+}
+
+.edrive-space .edrive-table-data-row .data-name a {
+    font-size: 15px;
     color: #000;
 }
 
@@ -138,7 +143,7 @@
 }
 
 .edrive-space .edrive-table-data-row .data-info {
-    font-size: 12px;
+    font-size: 10px;
     color: #777;
     vertical-align: middle;
     margin: auto 0;

@@ -1,12 +1,11 @@
 package backstage;
 
+import data.Article;
+import database.DBProcessing;
+import utils.Utils;
+import utils.XMLUtils;
 
-import org.apache.commons.io.FileUtils;
-
-import javax.rmi.CORBA.Util;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.StandardCopyOption;
 
 public class ArticleFilesHandler {
 
@@ -25,23 +24,16 @@ public class ArticleFilesHandler {
 
         System.out.println("Is Article Valid ? " + XMLUtils.validateWithDTDUsingDOM(xmlFile));
 
-        handleArticleData(xmlFile);
+        handleArticleData(xmlFile,pdfFile);
     }
 
-    private static void handleArticleData(File xmlFile) {
+    private static void handleArticleData(File xmlFile,File pdfFile) {
         File journalMetaXML = XMLUtils.XMLConverter(xmlFile, new File(Utils.PROJECT_PATH + "xsl/extractArticleMetaData.xsl"));
         Article a = new Article();
-
         a.setJournalMetaData(XMLUtils.DOMParser(journalMetaXML));
+        //a.setSelfUri(pdfFile.getAbsolutePath());
         DBProcessing.executeStatement("insert into  article_info values (" + a.getDataCS() + ')');
         System.out.println(a.getDataCS());
     }
-
-    private static void deleteGeneratedFiles() {
-        for ( File file : new File(Utils.PROJECT_PATH + "processed").listFiles() ) {
-            file.delete();
-        }
-    }
-
 
 }
