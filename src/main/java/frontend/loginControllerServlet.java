@@ -1,5 +1,9 @@
-package backstage;
+package frontend;
 
+
+import database.DBProcessing;
+import backstage.SubmissionHandler;
+import data.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "backstage.loginControllerServlet", urlPatterns = {"/login"})
+@WebServlet(name = "frontend.loginControllerServlet", urlPatterns = {"/login"})
 public class loginControllerServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

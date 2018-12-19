@@ -1,5 +1,11 @@
 package backstage;
 
+import utils.Utils;
+import utils.XMLUtils;
+import database.DBProcessing;
+import data.Issue;
+import data.Journal;
+
 import java.io.File;
 
 public class IssueFilesHandler {

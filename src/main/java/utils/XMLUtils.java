@@ -1,8 +1,6 @@
-package backstage;
+package utils;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -18,12 +16,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class XMLUtils {
 
-    private static int counter=0;
+    private static int counter = 0;
+
     private XMLUtils() {
     }
 
@@ -72,13 +70,17 @@ public class XMLUtils {
 
         File outputFile = null;
         try {
+
+            if (!new File(Utils.PROJECT_PATH + "processed").exists())
+                new File(Utils.PROJECT_PATH + "processed").mkdir();
+
             TransformerFactory factory = TransformerFactory.newInstance();
             Source xslt = new StreamSource(xslFile);
             Transformer transformer = factory.newTransformer(xslt);
 
             Source text = new StreamSource(xmlFile);
 
-            outputFile = new File(Utils.PROJECT_PATH+"processed/newFile"+counter++ +".xml");
+            outputFile = new File(Utils.PROJECT_PATH + "processed/newFile" + counter++ + ".xml");
 
             transformer.transform(text, new StreamResult(outputFile));
         } catch (Exception e) {

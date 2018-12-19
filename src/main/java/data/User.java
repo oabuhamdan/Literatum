@@ -1,4 +1,4 @@
-package backstage;
+package data;
 
 public class User {
 

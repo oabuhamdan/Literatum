@@ -1,4 +1,4 @@
-package backstage;
+package frontend;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
