@@ -10,8 +10,43 @@ public class Issue {
     private String pubYear;
     private String volume;
     private String issue_number;
-    private String issueID;
+    private String id;
 
+    public Issue() {
+    }
+
+    private Issue(String issueType, String pubMonth, String pubYear, String volume, String issue_number, String id) {
+        this.issueType = issueType;
+        this.pubMonth = pubMonth;
+        this.pubYear = pubYear;
+        this.volume = volume;
+        this.issue_number = issue_number;
+        this.id = id;
+    }
+
+    public String getIssueType() {
+        return issueType;
+    }
+
+    public String getPubMonth() {
+        return pubMonth;
+    }
+
+    public String getPubYear() {
+        return pubYear;
+    }
+
+    public String getVolume() {
+        return volume;
+    }
+
+    public String getIssue_number() {
+        return issue_number;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     private void setIssueType(String issueType) {
         this.issueType = issueType;
@@ -33,8 +68,8 @@ public class Issue {
         this.issue_number = issue_number;
     }
 
-    private void setIssueID(String issueID) {
-        this.issueID = issueID;
+    private void setId(String id) {
+        this.id = id.substring(id.indexOf('/')+1, id.indexOf('_'));
     }
 
     public void setIssueMetaData(NodeList nList) {
@@ -65,12 +100,13 @@ public class Issue {
                         .getElementsByTagName("issue")
                         .item(0)
                         .getTextContent());
-                setIssueID(eElement
+                setId(eElement
                         .getElementsByTagName("issue-id")
                         .item(0)
                         .getTextContent());
             }
         }
+        addToIssues();
     }
 
     @Override
@@ -81,7 +117,7 @@ public class Issue {
                 ", pubYear='" + pubYear + '\'' +
                 ", volume='" + volume + '\'' +
                 ", issue_number='" + issue_number + '\'' +
-                ", issueID='" + issueID + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 
@@ -91,6 +127,10 @@ public class Issue {
                 ',' + '\'' + pubYear + '\'' +
                 ',' + '\'' + volume + '\'' +
                 ',' + '\'' + issue_number + '\'' +
-                ',' + '\'' + issueID + '\'';
+                ',' + '\'' + id + '\'';
+    }
+
+    private void addToIssues() {
+        Utils.issues.add(new Issue(issueType, pubMonth, pubYear, volume, issue_number, id));
     }
 }

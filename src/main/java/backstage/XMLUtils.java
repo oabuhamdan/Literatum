@@ -29,7 +29,7 @@ public class XMLUtils {
 
 
     // validate using journalMetaDOMParser (DTD as defined in the XML)
-    public static boolean validateWithDTDUsingDOM(String xml) {
+    public static boolean validateWithDTDUsingDOM(File xmlFile) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setValidating(true);
@@ -54,7 +54,7 @@ public class XMLUtils {
                         }
                     }
             );
-            builder.parse(new InputSource(xml));
+            builder.parse(xmlFile);
             return true;
         } catch (ParserConfigurationException | IOException pce) {
             try {

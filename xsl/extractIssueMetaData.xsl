@@ -3,8 +3,7 @@
     <xsl:output method="xml" indent="no"/>
 
     <xsl:template match="/issue-xml/issue-meta">
-        <issue_number-meta>
-
+        <issue-meta>
             <xsl:element name="issue-type">
                 <xsl:value-of select="@issue-type"/>
             </xsl:element>
@@ -13,10 +12,8 @@
             <xsl:copy-of select="volume"/>
             <xsl:copy-of select="issue"/>
             <xsl:copy-of select="issue-id"/>
-        </issue_number-meta>
+        </issue-meta>
     </xsl:template>
 
     <xsl:template match="text()"/>
-
-
 </xsl:stylesheet>

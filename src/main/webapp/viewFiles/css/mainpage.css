@@ -47,6 +47,7 @@
     border-right: 1px solid #ddd;
     padding: 0.5em 0em !important;
     min-height: 93vh !important;
+
 }
 
 .edrive-sidebar .edrive-size-info {
@@ -123,11 +124,11 @@
 }
 
 .edrive-space .edrive-table-data-row .data-name .edrive-file-icon {
-    width: 16px;
+    width: 25px;
 }
 
 .edrive-space .edrive-table-data-row .data-name a {
-    font-size: 14px;
+    font-size: 25px;
     color: #000;
 }
 

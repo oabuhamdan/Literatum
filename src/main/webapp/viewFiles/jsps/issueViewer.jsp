@@ -54,15 +54,17 @@
             <div class="col-lg-1 col-md-1 col-sm-1 col-12">Size</div>
             <div class="col-lg-4 col-md-3 col-sm-3 col-12"></div>
         </div>
-        <c:forEach items="${requestScope.journals}" var="journal">
+        <c:forEach items="${requestScope.issues}" var="issue">
+            <c:if test="${issue.id == param.journalID}">
             <div class="row edrive-table-data-row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-12 data-name"><i class="fas fa-folder edrive-file-icon"></i>
-                    <a href="journal?journalID=${journal.id}" title="${journal.title}">${journal.title}</a></div>
+                    <a href="issue?publishDate=${journal.id}/${issue.pubYear}/${issue.pubMonth}" title="${issue.pubMonth}/${issue.pubYear}">${issue.pubMonth}/${issue.pubYear}</a></div>
                 <div class="col-lg-2 col-md-3 col-sm-3 col-12 data-info">-</div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-12 data-info">Folder</div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-12 data-info">-</div>
                 <div class="col-lg-4 col-md-3 col-sm-3 col-12 data-info"></div>
             </div>
+            </c:if>
         </c:forEach>
     </div>
 </div>

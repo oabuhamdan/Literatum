@@ -11,6 +11,37 @@ public class Journal {
     private String issn_epub;
     private String publisherName;
 
+    public Journal() {
+    }
+
+    private Journal(String id, String title, String issn_ppub, String issn_epub, String publisherName) {
+        this.id = id;
+        this.title = title;
+        this.issn_ppub = issn_ppub;
+        this.issn_epub = issn_epub;
+        this.publisherName = publisherName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getIssn_ppub() {
+        return issn_ppub;
+    }
+
+    public String getIssn_epub() {
+        return issn_epub;
+    }
+
+    public String getPublisherName() {
+        return publisherName;
+    }
+
     private void setId(String id) {
         this.id = id;
     }
@@ -61,6 +92,7 @@ public class Journal {
                         .getTextContent());
             }
         }
+        addToJournals();
     }
 
     @Override
@@ -74,11 +106,16 @@ public class Journal {
                 '}';
     }
 
-    public  String getDataCS(){
-        return '\'' + id+'\'' +
-                ',' +'\''+title+'\'' +
-                ',' +'\''+issn_ppub+'\'' +
-                ',' +'\''+issn_epub+'\'' +
-                ',' +'\''+publisherName+'\'' ;
+    public String getDataCS() {
+        return '\'' + id + '\'' +
+                ',' + '\'' + title + '\'' +
+                ',' + '\'' + issn_ppub + '\'' +
+                ',' + '\'' + issn_epub + '\'' +
+                ',' + '\'' + publisherName + '\'';
     }
+
+    private void addToJournals() {
+        Utils.journals.add(new Journal(id, title, issn_ppub, issn_epub, publisherName));
+    }
+
 }

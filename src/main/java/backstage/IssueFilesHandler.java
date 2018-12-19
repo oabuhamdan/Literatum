@@ -17,7 +17,7 @@ public class IssueFilesHandler {
 
         handleJournalData(xmlFile);
         handleIssueData(xmlFile);
-        deleteGeneratedFiles();
+        //deleteGeneratedFiles();
 
     }
 
@@ -31,17 +31,16 @@ public class IssueFilesHandler {
         File journalMetaXML = XMLUtils.XMLConverter(xmlFile, new File(Utils.PROJECT_PATH + "xsl/extractJournalMetaData.xsl"));
         Journal j = new Journal();
         j.setJournalMetaData(XMLUtils.DOMParser(journalMetaXML));
-        DBProcessing.executeStatement("insert into  journal_info values ("+j.getDataCS()+')');
+        DBProcessing.executeStatement("insert into  journal_info values (" + j.getDataCS() + ')');
         System.out.println(j.getDataCS());
         System.out.println(j);
-
     }
 
     private static void handleIssueData(File xmlFile) {
         File journalMetaXML = XMLUtils.XMLConverter(xmlFile, new File(Utils.PROJECT_PATH + "xsl/extractIssueMetaData.xsl"));
         Issue i = new Issue();
         i.setIssueMetaData(XMLUtils.DOMParser(journalMetaXML));
-        DBProcessing.executeStatement("insert into  issue_info values ("+i.getDataCS()+')');
+        DBProcessing.executeStatement("insert into  issue_info values (" + i.getDataCS() + ')');
         System.out.println(i);
     }
 }
